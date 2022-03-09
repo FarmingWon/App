@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.ws.mysololife.R
+import com.ws.mysololife.comment.commentLVAdapter
+import com.ws.mysololife.comment.commentModel
 import com.ws.mysololife.databinding.ActivityBoardInsideBinding
 import com.ws.mysololife.utils.FBAuth
 import com.ws.mysololife.utils.FBRef
@@ -27,7 +29,9 @@ import java.lang.Exception
 class BoardInsideActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardInsideBinding
     private val TAG = BoardInsideActivity::class.java.simpleName
+    private val commentDataList = mutableListOf<commentModel>()
     private lateinit var key:String
+    private lateinit var commentAdapter : commentLVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +51,50 @@ class BoardInsideActivity : AppCompatActivity() {
         getBoardData(key)
         getImageData(key)
 
+        binding.commentBtn.setOnClickListener {
+            insertComment(key)
+        }
+        commentAdapter = commentLVAdapter(commentDataList)
+        binding.commentLV.adapter = commentAdapter
+        getCommentData(key)
+    }
+
+
+    //댓글 내용 불러오기
+    fun getCommentData(key : String){
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
+                commentDataList.clear()
+                for(dataModel in dataSnapshot.children){
+                    val item = dataModel.getValue(commentModel::class.java)
+                    commentDataList.add(item!!)
+                }
+                commentAdapter.notifyDataSetChanged()
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("ContentsListActivity", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.commentRef.child(key).addValueEventListener(postListener)
 
     }
+
+    //댓글 작성하기
+    fun insertComment(key : String){
+        FBRef.commentRef
+            .child(key)
+            .push()
+            .setValue(commentModel(binding.commentArea.text.toString(),FBAuth.getTime()))
+        Toast.makeText(this, "댓글 입력 완료",Toast.LENGTH_SHORT).show()
+        binding.commentArea.setText("")
+    }
+
+
+    // 수정/삭제 버튼
     private fun showDialog(){
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
         val mBuilder = AlertDialog.Builder(this).setView(mDialogView).setTitle("게시글 수정/삭제")
@@ -66,6 +112,7 @@ class BoardInsideActivity : AppCompatActivity() {
         }
     }
 
+    //이미지 있으면 불러오기
     private fun getImageData(key : String){
         val storageReference = Firebase.storage.reference.child(key+".png")
 
@@ -77,10 +124,12 @@ class BoardInsideActivity : AppCompatActivity() {
                     .load(task.result)
                     .into(imageView)
             }else{
-
+                binding.getImageArea.isVisible = false
             }
         })
     }
+
+    //글 내용 불러오기
     private fun getBoardData(key : String){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -91,6 +140,7 @@ class BoardInsideActivity : AppCompatActivity() {
                     binding.timeArea.text = dataModel!!.time
                     val myuid = FBAuth.getUid()
                     val writerUid = dataModel.uid
+                    // uid비교 후 수정/삭제 dialog 보이게 체크
                     if(myuid.equals(writerUid)){
                         binding.boardSettingIcon.isVisible=true
                     }else{

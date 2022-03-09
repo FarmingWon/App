@@ -63,6 +63,7 @@ class BookMarkFragment : Fragment() {
         return binding.root
     }
 
+    //user의 uid값에 저장된 bookmark의 key값과  content의 key값이 같을 시 데이터 받아오기
     private fun getCategoryData(){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -88,6 +89,7 @@ class BookMarkFragment : Fragment() {
         FBRef.category3.addValueEventListener(postListener)
     }
 
+    //user의 uid에 저장된 북마크의 key값 받아오기
     private fun getBookmarkData(){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

@@ -39,8 +39,11 @@ class TalkFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_talk, container, false )
         // Inflate the layout for this fragment
         val boardList =  mutableListOf<BoardModel>()
+
+        //board 미리보기 연결
         boardAdapter = BoardListLVAdapter(boardDataList)
         binding.boardListView.adapter = boardAdapter
+
         binding.boardListView.setOnItemClickListener{parent, view, position, id ->
             val intent = Intent(context, BoardInsideActivity::class.java)
 //            intent.putExtra("title", boardDataList[position].title)
@@ -54,6 +57,7 @@ class TalkFragment : Fragment() {
             val intent = Intent(context, BoardWriteActivity::class.java)
             startActivity(intent)
         }
+
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_talkFragment_to_tipFragment)
         }
@@ -70,6 +74,7 @@ class TalkFragment : Fragment() {
         return binding.root
     }
 
+    //board data 불러오기
     private fun getFBBoardData(){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -80,6 +85,7 @@ class TalkFragment : Fragment() {
                     boardDataList.add(item!!)
                     boardKeyList.add(dataModel.key.toString())
                 }
+                //시간순으로 보여주기 위해 reverse
                 boardKeyList.reverse()
                 boardDataList.reverse()
                 boardAdapter.notifyDataSetChanged()

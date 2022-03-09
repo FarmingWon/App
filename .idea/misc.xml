@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/drawable/background_radius.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/background_radius_yellow.xml" value="0.1895" />
         <entry key="app/src/main/res/layout/activity_board_edit.xml" value="0.2346014492753623" />
-        <entry key="app/src/main/res/layout/activity_board_inside.xml" value="0.26017054091765274" />
+        <entry key="app/src/main/res/layout/activity_board_inside.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_board_write.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_content_list.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_content_show.xml" value="0.2346014492753623" />
@@ -17,13 +17,14 @@
         <entry key="app/src/main/res/layout/activity_setting.xml" value="0.2346014492753623" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.335" />
         <entry key="app/src/main/res/layout/board_list_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/comment_list_item.xml" value="0.3217544555664063" />
         <entry key="app/src/main/res/layout/contents_rv_item.xml" value="0.2548476454293629" />
         <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.27797303130661233" />
         <entry key="app/src/main/res/layout/fragment_book_mark.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.27531127929687504" />
         <entry key="app/src/main/res/layout/fragment_store.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_talk.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_tip.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_tip.xml" value="0.2951339721679687" />
       </map>
     </option>
   </component>

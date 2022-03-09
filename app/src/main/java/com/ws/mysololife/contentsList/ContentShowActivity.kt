@@ -10,6 +10,8 @@ class ContentShowActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content_show)
+
+        //url 정보 받아온 후 실행
         val getUrl = intent.getStringExtra("url")
         val webView : WebView = findViewById(R.id.webView)
         webView.loadUrl(getUrl.toString())

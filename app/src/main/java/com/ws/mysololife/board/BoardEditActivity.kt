@@ -23,6 +23,7 @@ class BoardEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBoardEditBinding
     private lateinit var writerUid : String
     private val TAG = BoardEditActivity::class.java.toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board_edit)
@@ -30,11 +31,14 @@ class BoardEditActivity : AppCompatActivity() {
         key = intent.getStringExtra("key").toString()
         getBoardData(key)
         getImageData(key)
+
+        //게시판 수정
         binding.editBtn.setOnClickListener {
             editBoardData(key)
         }
     }
 
+    //이미지 받아오기
     private fun getImageData(key : String){
         val storageReference = Firebase.storage.reference.child(key+".png")
 
@@ -51,6 +55,7 @@ class BoardEditActivity : AppCompatActivity() {
         })
     }
 
+    //수정값 전달
     private fun editBoardData(key: String){
         FBRef.boardRef
             .child(key)
@@ -59,6 +64,7 @@ class BoardEditActivity : AppCompatActivity() {
         finish()
     }
 
+    // key값에 저장해두었던 내용 받아오기
     private fun getBoardData(key: String) {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

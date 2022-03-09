@@ -27,12 +27,14 @@ class ContentListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_content_list)
 
         val database = Firebase.database
-        val category = intent.getStringExtra("category")
         val items = ArrayList<ContentModel>()
         val itemKeyList = ArrayList<String>()
         rvAdapter = ContentRVAdapter(baseContext, items, itemKeyList, bookmarkIDList)
         var myRef : DatabaseReference
 
+
+        // category에 대한 정보 받아오기
+        val category = intent.getStringExtra("category")
         if(category == "category1"){
             myRef = database.getReference("contents")
         }else if(category == "category2"){
@@ -50,6 +52,8 @@ class ContentListActivity : AppCompatActivity() {
         }else{
             myRef = database.getReference("contents8")
         }
+
+        //firebase에 저장되어있는 content에 대한 정보 ContentModel 형태로 데이터 받아오기
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
@@ -75,6 +79,7 @@ class ContentListActivity : AppCompatActivity() {
         getBookmarkData()
     }
 
+    //북마크 되어있는 것에 대한 정보 불러오기
     private fun getBookmarkData(){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

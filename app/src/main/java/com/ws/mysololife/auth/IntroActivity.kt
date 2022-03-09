@@ -24,15 +24,19 @@ class IntroActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_intro)
 
+        //로그인
         binding.loginBtn.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
+        //회원가입
         binding.joinBtn.setOnClickListener {
             val intent = Intent(this, JoinActivity::class.java)
             startActivity(intent)
         }
+
+        //비회원 로그인
         binding.noAccountBtn.setOnClickListener {
             auth.signInAnonymously()
                 .addOnCompleteListener(this) { task ->

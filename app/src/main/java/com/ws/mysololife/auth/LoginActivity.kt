@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         auth = Firebase.auth
 
+        //로그인
         binding.loginBtn.setOnClickListener {
             val email = binding.emailArea.text.toString()
             val password = binding.passwordArea.text.toString()

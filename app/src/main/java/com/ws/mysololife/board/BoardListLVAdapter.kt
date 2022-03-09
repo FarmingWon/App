@@ -26,9 +26,11 @@ class BoardListLVAdapter(val boardList : MutableList<BoardModel>) : BaseAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var converView = convertView
             converView = LayoutInflater.from(parent?.context).inflate(R.layout.board_list_item, parent, false)
-        
+
 
         val itemLinearLayoutView = converView?.findViewById<LinearLayout>(R.id.itemView)
+
+        //게시판 글쓴이와 현재접속자가 동일유저라면 글 색상 변경
         if(boardList[position].uid.equals(FBAuth.getUid())){
             itemLinearLayoutView?.setBackgroundColor(Color.parseColor("#ffa500"))
         }

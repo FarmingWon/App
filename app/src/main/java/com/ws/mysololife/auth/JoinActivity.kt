@@ -22,6 +22,7 @@ class JoinActivity : AppCompatActivity() {
         auth = Firebase.auth
         binding = DataBindingUtil.setContentView(this, R.layout.activity_join)
 
+        //회원가입
         binding.joinBtn2.setOnClickListener {
             var isGotoJoin = true
             val email = binding.emailArea.text.toString()

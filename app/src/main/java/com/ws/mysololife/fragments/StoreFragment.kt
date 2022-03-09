@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.ws.mysololife.R
@@ -24,6 +25,12 @@ class StoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_store, container, false)
+
+        val view =  inflater.inflate(R.layout.fragment_store, container, false)
+
+        val webView : WebView = view.findViewById(R.id.storeWebView)
+        webView.loadUrl("https://smartstore.naver.com/oneroomlife")
+
+        return view
     }
 }

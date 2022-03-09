@@ -26,6 +26,7 @@ class BoardWriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_write)
 
+        //글 작성하기
         binding.writeBtn.setOnClickListener {
             val title = binding.titleArea.text.toString()
             val content = binding.contentArea.text.toString()
@@ -44,12 +45,15 @@ class BoardWriteActivity : AppCompatActivity() {
             finish()
 
         }
+        //image 있을 시 이미지 있다고 체크
         binding.imageArea.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, 100)
             isImageUpload = true
         }
     }
+
+    //이미지 firebase에 업로드
     private fun imageUpload(key : String){
         val storage = Firebase.storage
         val imageView = binding.imageArea
